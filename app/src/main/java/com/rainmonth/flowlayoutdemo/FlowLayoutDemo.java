@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.rainmonth.view.FlowLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class FlowLayoutDemo extends AppCompatActivity {
 
     private String[] flowStrings = {"Hello", "Android", "Weclome Hi ", "Button", "TextView", "Hello",
             "Android", "Welcome", "Button ImageView", "TextView", "HelloWorld",
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_flow_layout_demo);
 
         flowLayout = (FlowLayout) findViewById(R.id.flow_layout);
         initData();
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         LayoutInflater inflater = LayoutInflater.from(this);
         for (int i = 0; i < flowStrings.length; i++) {
-            TextView textView = (TextView) inflater.inflate(R.layout.tv, flowLayout, false);
+            TextView textView = (TextView) inflater.inflate(R.layout.flow_layout_text_view_layout, flowLayout, false);
             textView.setText(flowStrings[i]);
             flowLayout.addView(textView);
         }

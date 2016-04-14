@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FlowLayoutDemo示例</string>
+    <string name="flow_layout">FlowLayout示例</string>
+    <string name="tag_cloud_view">TagCloudView示例</string>
+    <string name="action_settings">设置</string>
+    <string name="test">Helloworld</string>
 </resources>
