@@ -60,11 +60,12 @@ public class FlowLayout extends ViewGroup {
             // 得到LayoutParams
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
-            // 子View占据的宽度
+            // 子View占据的宽度，包括本身宽度和左右margin
             int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
-            // 子View占据的高度
+            // 子View占据的高度，包括本身高度和上下margin
             int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
+            // 如果当前的行宽 ＋ 当前child view的宽度 > 容器本身可用的宽度（可用的宽度＝实际宽度－左右的padding），则要进行换行
             if (lineWidth + childWidth > sizeWidth - getPaddingLeft() - getPaddingRight()) {// 换行
                 // 对比得到最大的宽度
                 width = Math.max(width, lineWidth);
@@ -90,13 +91,10 @@ public class FlowLayout extends ViewGroup {
         Log.e("TAG", "sizeHeight = " + sizeHeight);
 
         setMeasuredDimension(
-                //
-                modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width
-                        + getPaddingLeft() + getPaddingRight(),
-                modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height
-                        + getPaddingTop() + getPaddingBottom()//
+            //
+            modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingLeft() + getPaddingRight(),
+            modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height + getPaddingTop() + getPaddingBottom()//
         );
-
     }
 
     /**
@@ -119,8 +117,7 @@ public class FlowLayout extends ViewGroup {
 
         for (int i = 0; i < cCount; i++) {
             View child = getChildAt(i);
-            MarginLayoutParams lp = (MarginLayoutParams) child
-                    .getLayoutParams();
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
@@ -140,8 +137,7 @@ public class FlowLayout extends ViewGroup {
                 lineViews = new ArrayList<View>();
             }
             lineWidth += childWidth + lp.leftMargin + lp.rightMargin;
-            lineHeight = Math.max(lineHeight, childHeight + lp.topMargin
-                    + lp.bottomMargin);
+            lineHeight = Math.max(lineHeight, childHeight + lp.topMargin + lp.bottomMargin);
             lineViews.add(child);
 
         }// for end
@@ -169,8 +165,7 @@ public class FlowLayout extends ViewGroup {
                     continue;
                 }
 
-                MarginLayoutParams lp = (MarginLayoutParams) child
-                        .getLayoutParams();
+                MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
                 int lc = left + lp.leftMargin;
                 int tc = top + lp.topMargin;
@@ -179,9 +174,7 @@ public class FlowLayout extends ViewGroup {
 
                 // 为子View进行布局
                 child.layout(lc, tc, rc, bc);
-
-                left += child.getMeasuredWidth() + lp.leftMargin
-                        + lp.rightMargin;
+                left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
             }
             left = getPaddingLeft();
             top += lineHeight;
